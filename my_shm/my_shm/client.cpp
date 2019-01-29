@@ -1,10 +1,12 @@
-#include "comm.h"
+#include "comm.hpp"
 
 int main()
 {
-  int shmid = getshm(4096);
+
+  Shm shm(4096);
+  int shmid = shm.getshm();
   sleep(1);
-  char *addr = shmat(shmid,NULL,0);
+  char *addr = (char*)shmat(shmid,NULL,0);
   sleep(2);
   int i = 0;
   while(i<26)
@@ -16,6 +18,5 @@ int main()
   }
   shmdt(addr);
   sleep(2);
-  destory(shmid);
   return 0;
 }
